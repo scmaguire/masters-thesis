@@ -1,0 +1,376 @@
+\chapter{MATLAB SCRIPT}
+\label{append-C}
+
+\section{MATLAB Script}
+
+This appendix contains MATLAB script used in generating figures from the data exported from the PULSE software.
+
+\subsection{Input Files}
+
+To plot the excel sheet exported from PULSE the data was imported into MATLAB and manipulated. The full range of frequencies from 0 Hz to 6,400 Hz was contained in the data. However, due to the geometry of the Impedance Tube, not all of this data is useful. The data from 50 Hz to 6,300 Hz was pulled out of the exported excel files. This data was then used to plot Absorption Coefficient ($\alpha$) vs. frequency ($f$).
+
+\subsection{Plotting Code}
+
+The following script was used in order to generate the figures throughout the document. For finishing touches, MATLAB's plot tools were used.
+
+\begin{verbatim}
+% Master Plot File
+
+%Empty (2x)
+data1 = xlsread('empty large.xls'); %1
+f1 = data1(32:807,1);    % 50Hz to 1600 Hz
+A_c1 = data1(32:807,2);
+data2 = xlsread('empty small.xls'); %2
+f2 = data2(70:794,1);    % 500Hz to 6300 Hz
+A_c2 = data2(70:794,2);
+%O ring only (2x)
+data1 = xlsread('BKFoam_large_nofoam_ringonly.xls');  %3
+data2 = xlsread('BKFoam_small_nofoam_ringonly.xls');  %4
+A_c3 = data1(32:807,2);
+A_c4 = data2(70:794,2);
+%BK foam only (2x)
+data1 = xlsread('BKFoam_large_noring.xls');  %5
+data2 = xlsread('BKFoam_small_noring.xls');  %6
+A_c5 = data1(32:807,2);
+A_c6 = data2(70:794,2);
+%O ring plus BK foam only (2x)
+data1 = xlsread('BKFoam_large_ring.xls'); %7
+data2 = xlsread('BKFoam_small_ring.xls'); %8
+A_c7 = data1(32:807,2);
+A_c8 = data2(70:794,2);
+
+%Raw Cotton
+data1 = xlsread('cotton small 1point5gram.xls'); %9
+A_c9 = data1(70:794,2);
+
+%Auralex foam
+data1 = xlsread('Auralex_foam_small.xls'); %10
+A_c10 = data1(70:794,7);
+%Auralex Cotton
+data1 = xlsread('Auralex_cotton_small.xls'); %11
+A_c11 = data1(70:794,7);
+%Auralex comp poly
+data1 = xlsread('Auralex_CompPoly_small.xls'); %12
+A_c12 = data1(70:794,7);
+
+%Fiberglass thick (2x)
+data1 = xlsread('FIBERGLASS_largethick2-11.xls'); %13
+data2 = xlsread('FIBERGLASS_SmallThickPanel-2-11.xls'); %14
+A_c13 = data1(29:804,2);
+A_c14 = data2(67:791,2);
+%Fiberglass Thin (2x)
+data1 = xlsread('FIBERGLASS_largethinpanel-2-11.xlsx'); %15
+data2 = xlsread('FIBERGLASS_SmallThinPanel-2-11.xlsx'); %16
+A_c15 = data1(29:804,2);
+A_c16 = data2(67:791,2);
+
+%EX15-1 (4x)
+data1 = xlsread('EX1054-15-1-SOCK_LargeTube_4layer.xls'); %17
+data2 = xlsread('EX1054-15-1-SOCK_SmallTube_4layer.xls'); %18
+data3 = xlsread('EX1054-15-1-SOCK_LargeTube_8layer.xls'); %19
+data4 = xlsread('EX1054-15-1-SOCK_SmallTube_8layer.xls'); %20
+A_c17 = data1(32:807,2);
+A_c18 = data2(70:794,2);
+A_c19 = data3(32:807,2);
+A_c20 = data4(70:794,2);
+%EX15-2 (4x)
+data1 = xlsread('EX1054-15-2-SOCK_LargeTube_4layer.xls'); %21
+data2 = xlsread('EX1054-15-2-SOCK_SmallTube_4layer.xls'); %22
+data3 = xlsread('EX1054-15-2-SOCK_LargeTube_8layer.xls'); %23
+data4 = xlsread('EX1054-15-2-SOCK_SmallTube_8layer.xls'); %24
+A_c21 = data1(32:807,2);
+A_c22 = data2(70:794,2);
+A_c23 = data3(32:807,2);
+A_c24 = data4(70:794,2);
+%EX15-3 (4x)
+data1 = xlsread('EX1054-15-3-SOCK_LargeTube_4layer.xls'); %25
+data2 = xlsread('EX1054-15-3-SOCK_SmallTube_4layer.xls'); %26
+data3 = xlsread('EX1054-15-3-SOCK_LargeTube_8layer.xls'); %27
+data4 = xlsread('EX1054-15-3-SOCK_SmallTube_8layer.xls'); %28
+A_c25 = data1(32:807,2);
+A_c26 = data2(70:794,2);
+A_c27 = data3(32:807,2);
+A_c28 = data4(70:794,2);
+
+%8-2
+data1 = xlsread('ex1153-8-2-4layer-largetube_take2.xls'); %29
+data2 = xlsread('ex1153-8-2-4layer-smalltube_take2.xls'); %30
+data3 = xlsread('ex1153-8-2-8layer-largetube_take2.xls'); %31
+data4 = xlsread('ex1153-8-2-8layer-smalltube_take2.xls'); %32
+A_c29 = data1(32:807,2);
+A_c30 = data2(70:794,2);
+A_c31 = data3(32:807,2);
+A_c32 = data4(70:794,2);
+%9-1
+data1 = xlsread('EX1054-9-1-SOCK_LargeTube_4layer.xls'); %33
+data2 = xlsread('EX1054-9-1-SOCK_SmallTube_4layer.xls'); %34
+data3 = xlsread('EX1054-9-1-SOCK_LargeTube_8layer.xls'); %35
+data4 = xlsread('EX1054-9-1-SOCK_SmallTube_8layer.xls'); %36
+A_c33 = data1(32:807,2);
+A_c34 = data2(70:794,2);
+A_c35 = data3(32:807,2);
+A_c36 = data4(70:794,2);
+%9-3
+data1 = xlsread('EX1054-9-3-SOCK_LargeTube_4layer.xls'); %37
+data2 = xlsread('EX1054-9-3-SOCK_SmallTube_4layer.xls'); %38
+data3 = xlsread('EX1054-9-3-SOCK_LargeTube_8layer.xls'); %39
+data4 = xlsread('EX1054-9-3-SOCK_SmallTube_8layer.xls'); %40
+data5 = xlsread('ex1054-9-3-7layer-large.xls'); %41
+data6 = xlsread('ex1054-9-3-7layer-small.xls'); %42
+A_c37 = data1(32:807,2);
+A_c38 = data2(70:794,2);
+A_c39 = data3(32:807,2);
+A_c40 = data4(70:794,2);
+A_c41 = data3(32:807,2);
+A_c42 = data4(70:794,2);
+%9-5
+data1 = xlsread('ex1054-9-5_4layer-large_take2.xls'); %43
+data2 = xlsread('ex1054-9-5_4layer-small_take2.xls'); %44
+data3 = xlsread('ex1054-9-5_8layer-large_take2.xls'); %45
+data4 = xlsread('ex1054-9-5_8layer-small_take2.xls'); %46
+A_c43 = data1(32:807,2);
+A_c44 = data2(70:794,2);
+A_c45 = data3(32:807,2);
+A_c46 = data4(70:794,2);
+%9-6
+data1 = xlsread('ex1054-9-6_large_4layer_take2.xls'); %47
+data2 = xlsread('ex1054-9-6_small_4layer_take2.xls'); %48
+data3 = xlsread('ex1054-9-6_large_8layer_take2.xls'); %49
+data4 = xlsread('ex1054-9-6_small_8layer_take2.xls'); %50
+A_c47 = data1(32:807,2);
+A_c48 = data2(70:794,2);
+A_c49 = data3(32:807,2);
+A_c50 = data4(70:794,2);
+%9-8
+data1 = xlsread('EX1054-9-8-SOCK_LargeTube_4layer.xls'); %51
+data2 = xlsread('EX1054-9-8-SOCK_SmallTube_4layer.xls'); %52
+data3 = xlsread('EX1054-9-8-SOCK_LargeTube_8layer.xls'); %53
+data4 = xlsread('EX1054-9-8-SOCK_SmallTube_8layer.xls'); %54
+A_c51 = data1(32:807,2);
+A_c52 = data2(70:794,2);
+A_c53 = data3(32:807,2);
+A_c54 = data4(70:794,2);
+%9-9
+data1 = xlsread('EX1054-9-9-SOCK_LargeTube_4layer.xls'); %55
+data2 = xlsread('EX1054-9-9-SOCK_SmallTube_4layer.xls'); %56
+data3 = xlsread('EX1054-9-9-SOCK_LargeTube_8layer.xls'); %57
+data4 = xlsread('EX1054-9-9-SOCK_SmallTube_8layer.xls'); %58
+data5 = xlsread('ex1054-9-9-9layer-large.xls'); %59
+data6 = xlsread('ex1054-9-9-9layer-small.xls'); %60
+A_c55 = data1(32:807,2);
+A_c56 = data2(70:794,2);
+A_c57 = data3(32:807,2);
+A_c58 = data4(70:794,2);
+A_c59 = data3(32:807,2);
+A_c60 = data4(70:794,2);
+%18-1
+data1 = xlsread('EX1054-18-1-SOCK_LargeTube_4layer.xls'); %61
+data2 = xlsread('EX1054-18-1-SOCK_SmallTube_4layer.xls'); %62
+data3 = xlsread('EX1054-18-1-SOCK_LargeTube_8layer.xls'); %63
+data4 = xlsread('EX1054-18-1-SOCK_SmallTube_8layer.xls'); %64
+A_c61 = data1(32:807,2);
+A_c62 = data2(70:794,2);
+A_c63 = data3(32:807,2);
+A_c64 = data4(70:794,2);
+%18-2
+data1 = xlsread('EX1054-18-2-SOCK_LargeTube_4layer.xls'); %65
+data2 = xlsread('EX1054-18-2-SOCK_SmallTube_4layer.xls'); %66
+data3 = xlsread('EX1054-18-2-SOCK_LargeTube_8layer.xls'); %67
+data4 = xlsread('EX1054-18-2-SOCK_SmallTube_8layer.xls'); %68
+A_c65 = data1(32:807,2);
+A_c66 = data2(70:794,2);
+A_c67 = data3(32:807,2);
+A_c68 = data4(70:794,2);
+%18-3
+data1 = xlsread('ex1054-18-3-4layer-large_take2.xls'); %69
+data2 = xlsread('ex1054-18-3-4layer-small_take2.xls'); %70
+data3 = xlsread('ex1054-18-3-8layer-large_take2.xls'); %71
+data4 = xlsread('ex1054-18-3-8layer-small_take2.xls'); %72
+data5 = xlsread('ex1054-18-3-2layer-large.xls'); %73
+data6 = xlsread('ex1054-18-3-2layer-small.xls'); %74
+A_c69 = data1(32:807,2);
+A_c70 = data2(70:794,2);
+A_c71 = data3(32:807,2);
+A_c72 = data4(70:794,2);
+A_c73 = data3(32:807,2);
+A_c74 = data4(70:794,2);
+%18-4
+data1 = xlsread('ex1054-18-4-4layer-large_take2.xls'); %75
+data2 = xlsread('ex1054-18-4-4layer-small_take2.xls'); %76
+data3 = xlsread('ex1054-18-4-8layer-large_take2.xls'); %77
+data4 = xlsread('ex1054-18-4-8layer-small_take2.xls'); %78
+data5 = xlsread('ex1054-18-4-1layer-large.xls'); %79
+data6 = xlsread('ex1054-18-4-1layer-small.xls'); %80
+A_c75 = data1(32:807,2);
+A_c76 = data2(70:794,2);
+A_c77 = data3(32:807,2);
+A_c78 = data4(70:794,2);
+A_c79 = data3(32:807,2);
+A_c80 = data4(70:794,2);
+
+%Filter Rod Black (2x)
+data1 = xlsread('FilterRod_Black_SmallTube_Short.xls'); %81
+data2 = xlsread('FilterRod_Black_SmallTube_Long.xls'); %82
+A_c81 = data1(70:794,2);
+A_c82 = data2(70:794,2);
+    
+%Filter Rod White (4x)
+data1 = xlsread('FilterRod_White_LargeTube_Short.xls'); %83
+data2 = xlsread('FilterRod_White_SmallTube_Short.xls'); %84
+data3 = xlsread('FilterRod_White_LargeTube_Long.xls'); %85
+data4 = xlsread('FilterRod_White_SmallTube_Long.xls'); %86
+A_c83 = data1(32:807,2);
+A_c84 = data2(70:794,2);
+A_c85 = data3(32:807,2);
+A_c86 = data4(70:794,2);
+    
+    %Filter Rod Black No paper (2x)
+data1 = xlsread('filterrod_black_nopaper_smalltube_short.xls'); %87
+data2 = xlsread('filterrod_black_nopaper_smalltube_long.xls'); %88
+A_c87 = data1(70:794,2);
+A_c88 = data2(70:794,2);
+    %Filter Rod White No Paper (2x)
+data1 = xlsread('filterrods_nopaper_white_small_short.xls'); %89
+data2 = xlsread('filterrods_nopaper_white_small_long.xls'); %90
+A_c89 = data1(70:794,2);
+A_c90 = data2(70:794,2);
+    
+    %Raw Tow (2x)
+data1 = xlsread('RAWTOW_large_24point4grams_multiSample.xls'); %91
+data2 = xlsread('RAWTOW_small_1point5gram_multiSample.xls'); %92
+A_c91 = data1(32:807,2);
+A_c92 = data2(70:794,2);
+
+figure
+hold on
+% Empty
+plot(f1,A_c1,'b','LineWidth',2) % 100mm
+plot(f2,A_c2,'b','LineWidth',2) % 29mm
+% O-ring
+plot(f1,A_c3,'b','LineWidth',2) % 100mm
+plot(f2,A_c4,'b','LineWidth',2) % 29mm
+% BK Foam only
+plot(f1,A_c5,'b','LineWidth',2) % 100mm
+plot(f2,A_c6,'b','LineWidth',2) % 29mm
+% BK Foam and O-ring
+plot(f1,A_c7,'b','LineWidth',2) % 100mm
+plot(f2,A_c8,'b','LineWidth',2) % 29mm
+% Raw Cotton 1.5 grams
+plot(f2,A_c9,'b','LineWidth',2) % 29mm
+% Auralex
+plot(f2,A_c10,'b','LineWidth',2) % 29mm
+plot(f2,A_c11,'b','LineWidth',2) % 29mm
+plot(f2,A_c12,'b','LineWidth',2) % 29mm
+% Raw Fiberglass
+plot(f1,A_c13,'b','LineWidth',2) % 100mm    Thick
+plot(f2,A_c14,'b','LineWidth',2) % 29mm     Thick
+plot(f1,A_c15,'b','LineWidth',2) % 100mm    Thin
+plot(f2,A_c16,'b','LineWidth',2) % 29mm     Thin
+% Sock non-CA 15-1
+plot(f1,A_c17,'b','LineWidth',2) % 100mm    4 Layer
+plot(f2,A_c18,'b','LineWidth',2) % 29mm     4 Layer
+plot(f1,A_c19,'b','LineWidth',2) % 100mm
+plot(f2,A_c20,'b','LineWidth',2) % 29mm
+% Sock non-CA 15-2
+plot(f1,A_c21,'b','LineWidth',2) % 100mm    4 Layer
+plot(f2,A_c22,'b','LineWidth',2) % 29mm     4 Layer
+plot(f1,A_c23,'b','LineWidth',2) % 100mm    8 Layer
+plot(f2,A_c24,'b','LineWidth',2) % 29mm     8 Layer
+% Sock non-CA 15-3
+plot(f1,A_c25,'b','LineWidth',2) % 100mm    4 Layer
+plot(f2,A_c26,'b','LineWidth',2) % 29mm     4 Layer
+plot(f1,A_c27,'b','LineWidth',2) % 100mm    8 Layer
+plot(f2,A_c28,'b','LineWidth',2) % 29mm     8 Layer
+
+% Sock CA 8-2
+plot(f1,A_c29,'b','LineWidth',2) %100mm    4 Layer
+plot(f2,A_c30,'b','LineWidth',2) %29mm     4 Layer
+plot(f1,A_c31,'b','LineWidth',2) %100mm    8 Layer
+plot(f2,A_c32,'b','LineWidth',2) %29mm     8 Layer
+% Sock CA 9-1
+plot(f1,A_c33,'b','LineWidth',2) %100mm    4 Layer
+plot(f2,A_c34,'b','LineWidth',2) %29mm     4 Layer
+plot(f1,A_c35,'b','LineWidth',2) %100mm    8 Layer
+plot(f2,A_c36,'b','LineWidth',2) %29mm     8 Layer
+% Sock CA 9-3
+plot(f1,A_c37,'b','LineWidth',2) %100mm    4 Layer
+plot(f2,A_c38,'b','LineWidth',2) %29mm     4 Layer
+plot(f1,A_c39,'b','LineWidth',2) %100mm    8 Layer
+plot(f2,A_c40,'b','LineWidth',2) %29mm     8 Layer
+plot(f1,A_c41,'b','LineWidth',2) %100mm    7 Layer
+plot(f2,A_c42,'b','LineWidth',2) %29mm     7 Layer
+% Sock CA 9-5
+plot(f1,A_c43,'b','LineWidth',2) %100mm    4 Layer
+plot(f2,A_c44,'b','LineWidth',2) %29mm     4 Layer
+plot(f1,A_c45,'b','LineWidth',2) %100mm    8 Layer
+plot(f2,A_c46,'b','LineWidth',2) %29mm     8 Layer
+% Sock CA 9-6
+plot(f1,A_c47,'b','LineWidth',2) %100mm    4 Layer
+plot(f2,A_c48,'b','LineWidth',2) %29mm     4 Layer
+plot(f1,A_c49,'b','LineWidth',2) %100mm    8 Layer
+plot(f2,A_c50,'b','LineWidth',2) %29mm     8 Layer
+% Sock CA 9-8
+plot(f1,A_c51,'b','LineWidth',2) %100mm    4 Layer
+plot(f2,A_c52,'b','LineWidth',2) %29mm     4 Layer
+plot(f1,A_c53,'b','LineWidth',2) %100mm    8 Layer
+plot(f2,A_c54,'b','LineWidth',2) %29mm     8 Layer
+% Sock CA 9-9
+plot(f1,A_c55,'b','LineWidth',2) %100mm    4 Layer
+plot(f2,A_c56,'b','LineWidth',2) %29mm     4 Layer
+plot(f1,A_c57,'b','LineWidth',2) %100mm    8 Layer
+plot(f2,A_c58,'b','LineWidth',2) %29mm     8 Layer
+plot(f1,A_c59,'b','LineWidth',2) %100mm    9 Layer
+plot(f2,A_c60,'b','LineWidth',2) %29mm     9 Layer
+% Sock CA 18-1
+plot(f1,A_c61,'b','LineWidth',2) %100mm    4 Layer
+plot(f2,A_c62,'b','LineWidth',2) %29mm     4 Layer
+plot(f1,A_c63,'b','LineWidth',2) %100mm    8 Layer
+plot(f2,A_c64,'b','LineWidth',2) %29mm     8 Layer
+% Sock CA 18-2
+plot(f1,A_c65,'b','LineWidth',2) %100mm    4 Layer
+plot(f2,A_c66,'b','LineWidth',2) %29mm     4 Layer
+plot(f1,A_c67,'b','LineWidth',2) %100mm    8 Layer
+plot(f2,A_c68,'b','LineWidth',2) %29mm     8 Layer
+% Sock CA 18-3
+plot(f1,A_c69,'b','LineWidth',2) %100mm    4 Layer
+plot(f2,A_c70,'b','LineWidth',2) %29mm     4 Layer
+plot(f1,A_c71,'b','LineWidth',2) %100mm    8 Layer
+plot(f2,A_c72,'b','LineWidth',2) %29mm     8 Layer
+plot(f1,A_c73,'b','LineWidth',2) %100mm    2 Layer
+plot(f2,A_c74,'b','LineWidth',2) %29mm     2 Layer
+% Sock CA 18-4
+plot(f1,A_c75,'b','LineWidth',2) %100mm    4 Layer
+plot(f2,A_c76,'b','LineWidth',2) %29mm     4 Layer
+plot(f1,A_c77,'b','LineWidth',2) %100mm    8 Layer
+plot(f2,A_c78,'b','LineWidth',2) %29mm     8 Layer
+plot(f1,A_c79,'b','LineWidth',2) %100mm    1 Layer
+plot(f2,A_c80,'b','LineWidth',2) %29mm     1 Layer
+
+% Filter Rod Black
+plot(f2,A_c81,'b','LineWidth',2) %29mm      Short
+plot(f2,A_c82,'b','LineWidth',2) %29mm      Long
+% Filter Rod White
+plot(f1,A_c83,'b','LineWidth',2) %100mm     Short
+plot(f2,A_c84,'b','LineWidth',2) %29mm      Short
+plot(f1,A_c85,'b','LineWidth',2) %100mm     Long
+plot(f2,A_c86,'b','LineWidth',2) %29mm      Long
+% Filter Rod Black No paper
+plot(f2,A_c87,'b','LineWidth',2) %29mm      Short
+plot(f2,A_c88,'b','LineWidth',2) %29mm      Long
+% Filter Rod White No paper
+plot(f2,A_c89,'b','LineWidth',2) %29mm      Short
+plot(f2,A_c90,'b','LineWidth',2) %29mm      Long
+
+% Raw Tow
+plot(f1,A_c91,'b','LineWidth',2) %100mm
+plot(f2,A_c92,'b','LineWidth',2) %29mm
+
+axis([0, 6300, 0, 1])
+xlabel('f (Hz)')
+ylabel('\alpha_c')
+
+legend('Data 1', 'Data 2', 'Data 3')
+
+title('Title of Plot Here')
+
+\end{verbatim}
